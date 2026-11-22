@@ -110,7 +110,7 @@ const QuizGroupSelection = ({ onSelected }) => {
         timeZone,
       });
 
-      console.log("Questionnaire selection:", response.data);
+      // console.log("Questionnaire selection:", response.data);
 
       const profileResponse = await axiosSecure.get("/users/me");
 

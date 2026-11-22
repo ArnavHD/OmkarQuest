@@ -385,7 +385,7 @@ const from = location.state?.from?.pathname || "/";
     // Avoid logging passwords or credentials.
     signIn(data.email, data.password)
     .then(result =>{
-        console.log(result.user);
+        // console.log(result.user);
         navigate(from, {replace: true})
     })
     .catch(error =>{

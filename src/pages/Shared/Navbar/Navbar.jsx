@@ -29,7 +29,7 @@ const Navbar = () => {
   const handleLogOut = () => {
     logOut()
       .then(() => {
-        console.log("user logged out successfully");
+        // console.log("user logged out successfully");
       })
       .catch((error) => {
         console.error(error);

@@ -406,7 +406,7 @@ const Register = () => {
   const axiosSecure = useAxiosSecure();
 
   const handleRegister = (data) => {
-    console.log("Form name:", data.name);
+    // console.log("Form name:", data.name);
 
     createUser(data.email, data.password)
       .then(async (result) => {
@@ -421,7 +421,7 @@ const Register = () => {
         // Step 3: Save user to MongoDB
         const response = await axiosSecure.post("/users");
 
-        console.log("MongoDB response:", response.data);
+        // console.log("MongoDB response:", response.data);
 
         navigate(from, { replace: true });
       })
