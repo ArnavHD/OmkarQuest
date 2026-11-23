@@ -384,73 +384,72 @@ const Dashboard = () => {
   }
 
   if (hasError) {
-  return (
-    <div className="flex h-full flex-col items-center justify-center gap-3 text-[#87152A]">
-      <p>Unable to load your dashboard.</p>
+    return (
+      <div className="flex h-full flex-col items-center justify-center gap-3 text-[#87152A]">
+        <p>Unable to load your dashboard.</p>
 
-      <button
-        type="button"
-        onClick={() => refetchHistory()}
-        className="rounded-full bg-[#87152A] px-5 py-2 text-white"
-      >
-        Try Again
-      </button>
-    </div>
-  );
-}
+        <button
+          type="button"
+          onClick={() => refetchHistory()}
+          className="rounded-full bg-[#87152A] px-5 py-2 text-white"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
 
-if (!hasCompletedFirstQuiz) {
-      return (
-        <main className="relative isolate flex min-h-dvh w-full items-center justify-center overflow-hidden px-4 py-8">
-          {/* Responsive background */}
-          <picture className="pointer-events-none absolute inset-0 -z-10">
-            <source media="(min-width: 1024px)" srcSet={desktopBg} />
-            <img src={mobileBg} alt="" className="h-full w-full object-cover" />
-          </picture>
+  if (!hasCompletedFirstQuiz) {
+    return (
+      <main className="relative isolate flex min-h-dvh w-full items-center justify-center overflow-hidden px-4 py-8">
+        {/* Responsive background */}
+        <picture className="pointer-events-none absolute inset-0 -z-10">
+          <source media="(min-width: 1024px)" srcSet={desktopBg} />
+          <img src={mobileBg} alt="" className="h-full w-full object-cover" />
+        </picture>
 
-          {/* Welcome card */}
-          <div className="w-full max-w-xl rounded-[28px] border-2 border-[#DDA56E] bg-[#FFF0D7]/95 px-6 py-10 text-center shadow-[0_10px_35px_rgba(80,30,20,0.18)] backdrop-blur-md sm:px-10">
-            <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-[#DDA56E] bg-gradient-to-br from-[#FFE8B5] to-[#F4C778]">
-              <BookOpen size={30} className="text-[#87152A]" />
-            </div>
-
-            <h1 className="font-serif text-2xl font-bold text-[#87152A] sm:text-3xl">
-              Welcome to Omkar Quest
-            </h1>
-
-            <p className="mt-4 font-serif text-lg font-semibold leading-relaxed text-[#642C24] sm:text-xl">
-              Attempt your first questionnaire to unlock your dashboard.
-            </p>
-
-            <p className="mx-auto mt-3 max-w-md font-serif text-sm leading-relaxed text-[#80533B] sm:text-base">
-              Begin your spiritual journey by completing your first daily
-              questionnaire. Your progress, streaks, and achievements will
-              appear here once you finish.
-            </p>
-
-            <button
-              type="button"
-              onClick={() => navigate("/dashboard/DailyQuestionnaire")}
-              className="mt-7 cursor-pointer inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#87152A] to-[#A83D35] px-7 py-3 font-serif text-sm font-bold text-[#FFF0D7] shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:text-base"
-            >
-              Start Your First Questionnaire
-              <ArrowRight size={18} />
-            </button>
+        {/* Welcome card */}
+        <div className="w-full max-w-xl rounded-[28px] border-2 border-[#DDA56E] bg-[#FFF0D7]/95 px-6 py-10 text-center shadow-[0_10px_35px_rgba(80,30,20,0.18)] backdrop-blur-md sm:px-10">
+          <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-[#DDA56E] bg-gradient-to-br from-[#FFE8B5] to-[#F4C778]">
+            <BookOpen size={30} className="text-[#87152A]" />
           </div>
-        </main>
-      );
-    }
 
-    if (todayLoading) {
-      return (
-        <div className="flex h-full items-center justify-center text-[#87152A]">
-          <span className="loading loading-spinner loading-lg" />
+          <h1 className="font-serif text-2xl font-bold text-[#87152A] sm:text-3xl">
+            Welcome to Omkar Quest
+          </h1>
+
+          <p className="mt-4 font-serif text-lg font-semibold leading-relaxed text-[#642C24] sm:text-xl">
+            Attempt your first questionnaire to unlock your dashboard.
+          </p>
+
+          <p className="mx-auto mt-3 max-w-md font-serif text-sm leading-relaxed text-[#80533B] sm:text-base">
+            Begin your spiritual journey by completing your first daily
+            questionnaire. Your progress, streaks, and achievements will appear
+            here once you finish.
+          </p>
+
+          <button
+            type="button"
+            onClick={() => navigate("/dashboard/DailyQuestionnaire")}
+            className="mt-7 cursor-pointer inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#87152A] to-[#A83D35] px-7 py-3 font-serif text-sm font-bold text-[#FFF0D7] shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:text-base"
+          >
+            Start Your First Questionnaire
+            <ArrowRight size={18} />
+          </button>
         </div>
-      );
-    }
+      </main>
+    );
+  }
 
-    if (todayError) {
+  if (todayLoading) {
+    return (
+      <div className="flex h-full items-center justify-center text-[#87152A]">
+        <span className="loading loading-spinner loading-lg" />
+      </div>
+    );
+  }
 
+  if (todayError) {
     return (
       <div className="flex h-full flex-col items-center justify-center gap-3 text-[#87152A]">
         <p>Unable to load your dashboard.</p>
@@ -470,7 +469,7 @@ if (!hasCompletedFirstQuiz) {
   }
 
   return (
-    <main className="relative isolate flex h-full min-h-0 w-full flex-col overflow-hidden">
+    <main className="relative isolate flex h-full min-h-0 w-full flex-col overflow-x-hidden overflow-y-auto lg:overflow-hidden">
       {/* ======================================= */}
       {/* RESPONSIVE DASHBOARD BACKGROUND */}
       {/* ======================================= */}
@@ -485,8 +484,8 @@ if (!hasCompletedFirstQuiz) {
       {/* ======================================= */}
       <div
         className="
-          mx-auto grid h-full min-h-0 w-full max-w-[1600px]
-          grid-rows-[auto_auto_minmax(0,1fr)]
+          mx-auto grid h-auto min-h-full w-full max-w-[1600px] lg:h-full lg:min-h-0
+          grid-rows-[auto_auto_auto_auto]
           gap-2 px-3 py-2
           sm:px-4
           lg:grid-rows-[minmax(0,0.85fr)_minmax(0,0.75fr)_minmax(0,1.1fr)_minmax(0,1fr)]
@@ -499,7 +498,7 @@ if (!hasCompletedFirstQuiz) {
         {/* ======================================= */}
         {/* HERO - WELCOME SECTION */}
         {/* ======================================= */}
-        <section className="flex min-h-0 items-center py-1 lg:py-2">
+        <section className="flex items-center py-1 lg:min-h-0 lg:py-2">
           <div
             className="
       w-fit max-w-full
@@ -530,7 +529,7 @@ if (!hasCompletedFirstQuiz) {
         {/* ======================================= */}
         {/* STATISTICS */}
         {/* ======================================= */}
-        <section className="grid min-h-0 grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-5">
+        <section className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:min-h-0 lg:grid-cols-5">
           {/* TODAY'S QUESTIONNAIRE */}
           <div className="col-span-2 min-h-0 sm:col-span-4 lg:col-span-1">
             {completedToday ? (
@@ -619,7 +618,7 @@ if (!hasCompletedFirstQuiz) {
         {/* ======================================= */}
         {/* MIDDLE ROW */}
         {/* ======================================= */}
-        <section className="grid min-h-0 grid-cols-1 gap-2 md:grid-cols-2">
+        <section className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:min-h-0">
           {/* TODAY'S WISDOM */}
           <DashboardCard className="min-h-[155px] md:min-h-0">
             <ImageBackground image={DASHBOARD_IMAGES.wisdom} />
@@ -695,7 +694,7 @@ if (!hasCompletedFirstQuiz) {
         {/* ======================================= */}
         {/* BOTTOM ROW */}
         {/* ======================================= */}
-        <section className="grid min-h-0 grid-cols-1 gap-2 md:grid-cols-2">
+        <section className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:min-h-0">
           {/* CONTINUE LEARNING - HIDDEN ON PHONES */}
           <DashboardCard className="hidden min-h-0 flex-col p-3 sm:flex">
             <h2 className="mb-2 flex items-center gap-2 font-serif text-base font-bold text-[#87152A] sm:text-lg">

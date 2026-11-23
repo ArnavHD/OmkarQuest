@@ -23,8 +23,11 @@ import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [avatarFailedUrl, setAvatarFailedUrl] = useState(null);
   const navigate = useNavigate();
   const { user, loading, logOut } = useAuth();
+  const avatarUrl = user?.photoURL;
+  const showAvatar = Boolean(avatarUrl && avatarFailedUrl !== avatarUrl);
 
   const handleLogOut = () => {
     logOut()
@@ -210,7 +213,17 @@ const Navbar = () => {
                 aria-label="My profile"
                 className="hidden h-9 w-9 items-center justify-center rounded-full border border-[#FFD65B] text-[#FFD65B] transition hover:bg-[#FFD65B]/15 sm:flex"
               >
-                <UserRound size={22} strokeWidth={1.6} />
+                {showAvatar ? (
+                  <img
+                    src={avatarUrl}
+                    alt="My profile"
+                    referrerPolicy="no-referrer"
+                    className="h-full w-full rounded-full object-cover"
+                    onError={() => setAvatarFailedUrl(avatarUrl)}
+                  />
+                ) : (
+                  <UserRound size={22} strokeWidth={1.6} />
+                )}
               </NavLink>
             </>
           ) : (
@@ -409,7 +422,17 @@ const Navbar = () => {
                       onClick={() => setMenuOpen(false)}
                       className="flex items-center gap-3 rounded-lg px-4 py-3 font-serif text-[#FFE6A1] hover:bg-[#DCA93B]/15"
                     >
-                      <UserRound size={20} />
+                      {showAvatar ? (
+                        <img
+                          src={avatarUrl}
+                          alt=""
+                          referrerPolicy="no-referrer"
+                          className="h-5 w-5 rounded-full object-cover"
+                          onError={() => setAvatarFailedUrl(avatarUrl)}
+                        />
+                      ) : (
+                        <UserRound size={20} />
+                      )}
                       My Profile
                     </NavLink>
 

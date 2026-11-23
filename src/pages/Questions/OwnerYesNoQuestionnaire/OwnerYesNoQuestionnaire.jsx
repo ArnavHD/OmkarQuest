@@ -565,91 +565,94 @@ const OwnerYesNoQuestionnaire = () => {
   };
 
   return (
-    <main className="relative isolate h-full min-h-0 w-full overflow-hidden">
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat md:hidden"
-        style={{ backgroundImage: `url(${mobileBg})` }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 hidden bg-cover bg-center bg-no-repeat md:block"
-        style={{ backgroundImage: `url(${desktopBg})` }}
-      />
-      <div className="relative z-10 mx-auto flex h-full min-h-0 w-full items-center justify-center  px-3 py-3 sm:px-6 md:px-8 lg:px-10">
-        {authLoading || todayPending || yesterdayPending ? (
-          <p className="py-20 text-center font-serif text-2xl text-[#791326]">
-            Loading daily reflection...
-          </p>
-        ) : todayError || yesterdayError ? (
-          <div className="mx-auto max-w-lg rounded-2xl bg-[#FFF0D7] p-8 text-center text-[#87152A]">
-            <AlertCircle className="mx-auto mb-3" size={36} />
-
-            <p>
-              {todayError?.response?.data?.message ||
-                yesterdayError?.response?.data?.message ||
-                "Failed to load daily reflection."}
+    <main className="relative isolate h-full min-h-0 w-full overflow-x-hidden overflow-y-auto lg:overflow-hidden">
+      {/* This wrapper grows with the scrollable content on phones. */}
+      <div className="relative isolate min-h-full w-full lg:h-full lg:min-h-0">
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat md:hidden"
+          style={{ backgroundImage: `url(${mobileBg})` }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 hidden bg-cover bg-center bg-no-repeat md:block"
+          style={{ backgroundImage: `url(${desktopBg})` }}
+        />
+        <div className="relative z-10 mx-auto flex min-h-full w-full items-center justify-center px-3 py-3 sm:px-6 md:px-8 lg:h-full lg:min-h-0 lg:px-10">
+          {authLoading || todayPending || yesterdayPending ? (
+            <p className="py-20 text-center font-serif text-2xl text-[#791326]">
+              Loading daily reflection...
             </p>
+          ) : todayError || yesterdayError ? (
+            <div className="mx-auto max-w-lg rounded-2xl bg-[#FFF0D7] p-8 text-center text-[#87152A]">
+              <AlertCircle className="mx-auto mb-3" size={36} />
 
-            <button
-              type="button"
-              onClick={() => {
-                if (todayError) refetchToday();
-                if (yesterdayError) refetchYesterday();
-              }}
-              className="mt-5 rounded-full bg-[#87152A] px-6 py-3 text-white"
-            >
-              Try Again
-            </button>
-          </div>
-        ) : !showSelection && todayData?.status === "completed" ? (
-          <ReflectionCompletion navigate={navigate} score={todayData.score} />
-        ) : (!showSelection || selectedDate) &&
-          activeData?.status === "available" ? (
-          <OwnerReflectionSession
-            key={`${user.uid}:${activeData.quizDate}`}
-            uid={user.uid}
-            initialData={activeData}
-            onBack={() => setSelectedDate(null)}
-            onCompleted={() => setSelectedDate(null)}
-          />
-        ) : (
-          <div className="mx-auto w-full max-w-5xl py-2">
-            <header className="mb-5 text-center">
-              <h1 className="font-serif text-3xl font-bold text-[#791326] drop-shadow-[0_1px_2px_#fff2d5] sm:text-4xl lg:text-5xl">
-                Daily Personal Reflection
-              </h1>
-
-              <p className="mt-2 font-serif text-base text-[#633326] sm:text-lg">
-                Choose your day • Reflect, improve, grow
+              <p>
+                {todayError?.response?.data?.message ||
+                  yesterdayError?.response?.data?.message ||
+                  "Failed to load daily reflection."}
               </p>
 
-              <div className="mx-auto mt-4 h-px w-48 bg-gradient-to-r from-transparent via-[#B9783E] to-transparent" />
-            </header>
+              <button
+                type="button"
+                onClick={() => {
+                  if (todayError) refetchToday();
+                  if (yesterdayError) refetchYesterday();
+                }}
+                className="mt-5 rounded-full bg-[#87152A] px-6 py-3 text-white"
+              >
+                Try Again
+              </button>
+            </div>
+          ) : !showSelection && todayData?.status === "completed" ? (
+            <ReflectionCompletion navigate={navigate} score={todayData.score} />
+          ) : (!showSelection || selectedDate) &&
+            activeData?.status === "available" ? (
+            <OwnerReflectionSession
+              key={`${user.uid}:${activeData.quizDate}`}
+              uid={user.uid}
+              initialData={activeData}
+              onBack={() => setSelectedDate(null)}
+              onCompleted={() => setSelectedDate(null)}
+            />
+          ) : (
+            <div className="mx-auto w-full max-w-5xl py-2">
+              <header className="mb-5 text-center">
+                <h1 className="font-serif text-3xl font-bold text-[#791326] drop-shadow-[0_1px_2px_#fff2d5] sm:text-4xl lg:text-5xl">
+                  Daily Personal Reflection
+                </h1>
 
-            <div className="grid gap-4 md:grid-cols-2">
-              <ReflectionChoiceCard
-                title="Today's Reflection"
-                date={todayData?.quizDate}
-                data={todayData}
-                loading={false}
-                error={null}
-                icon={Sun}
-                onSelect={() => chooseDate(todayData)}
-              />
+                <p className="mt-2 font-serif text-base text-[#633326] sm:text-lg">
+                  Choose your day • Reflect, improve, grow
+                </p>
 
-              {yesterdayData?.status === "available" && (
+                <div className="mx-auto mt-4 h-px w-48 bg-gradient-to-r from-transparent via-[#B9783E] to-transparent" />
+              </header>
+
+              <div className="grid gap-4 md:grid-cols-2">
                 <ReflectionChoiceCard
-                  title="Yesterday's Reflection"
-                  date={yesterdayDate}
-                  data={yesterdayData}
+                  title="Today's Reflection"
+                  date={todayData?.quizDate}
+                  data={todayData}
                   loading={false}
                   error={null}
-                  icon={MoonStar}
-                  onSelect={() => chooseDate(yesterdayData)}
+                  icon={Sun}
+                  onSelect={() => chooseDate(todayData)}
                 />
-              )}
+
+                {yesterdayData?.status === "available" && (
+                  <ReflectionChoiceCard
+                    title="Yesterday's Reflection"
+                    date={yesterdayDate}
+                    data={yesterdayData}
+                    loading={false}
+                    error={null}
+                    icon={MoonStar}
+                    onSelect={() => chooseDate(yesterdayData)}
+                  />
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </main>
   );

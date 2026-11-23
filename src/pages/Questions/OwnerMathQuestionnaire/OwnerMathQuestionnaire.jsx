@@ -606,103 +606,105 @@ const OwnerMathQuestionnaire = () => {
   };
 
   return (
-    <main className="relative isolate min-h-dvh w-full overflow-hidden">
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat md:hidden"
-        style={{ backgroundImage: `url(${mobileBg})` }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 hidden bg-cover bg-center bg-no-repeat md:block"
-        style={{ backgroundImage: `url(${desktopBg})` }}
-      />
+    <main className="relative isolate h-full min-h-0 w-full overflow-x-hidden overflow-y-auto lg:min-h-dvh lg:overflow-hidden">
+      <div className="relative isolate min-h-full w-full lg:min-h-dvh">
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat md:hidden"
+          style={{ backgroundImage: `url(${mobileBg})` }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 hidden bg-cover bg-center bg-no-repeat md:block"
+          style={{ backgroundImage: `url(${desktopBg})` }}
+        />
 
-      <div className="relative z-10 mx-auto flex min-h-dvh w-full items-start justify-center px-3 py-6 sm:px-6 md:px-8 lg:px-10">
-        {authLoading || todayPending || yesterdayPending ? (
-          <p className="py-20 text-center font-serif text-2xl text-[#791326]">
-            Loading mathematics challenges...
-          </p>
-        ) : todayError || yesterdayError ? (
-          <div className="mx-auto max-w-lg rounded-2xl bg-[#FFF0D7] p-8 text-center text-[#87152A]">
-            <AlertCircle className="mx-auto mb-3" size={36} />
-            <p>
-              {todayError?.response?.data?.message ||
-                yesterdayError?.response?.data?.message ||
-                "Failed to load mathematics challenges"}
+        <div className="relative z-10 mx-auto flex min-h-full w-full items-start justify-center px-3 py-6 sm:px-6 md:px-8 lg:min-h-dvh lg:px-10">
+          {authLoading || todayPending || yesterdayPending ? (
+            <p className="py-20 text-center font-serif text-2xl text-[#791326]">
+              Loading mathematics challenges...
             </p>
-            <button
-              type="button"
-              onClick={() => {
-                if (todayError) refetchToday();
-                if (yesterdayError) refetchYesterday();
-              }}
-              className="mt-5 rounded-full bg-[#87152A] px-6 py-3 text-white"
-            >
-              Try Again
-            </button>
-          </div>
-        ) : !showSelection && todayData?.status === "completed" ? (
-          <MathCompletion navigate={navigate} />
-        ) : (!showSelection || selectedDate) &&
-          activeData?.status === "available" ? (
-          <OwnerMathSession
-            key={`${user.uid}:${activeData.quizDate}`}
-            uid={user.uid}
-            initialData={activeData}
-            onBack={() => setSelectedDate(null)}
-            onCompleted={() => setSelectedDate(null)}
-            showBackButton={showSelection}
-          />
-        ) : (
-          <div className="mx-auto w-full max-w-5xl py-6">
-            <header className="mb-4 text-center">
-              <h1 className="font-serif text-3xl font-bold text-[#791326] drop-shadow-[0_1px_2px_#fff2d5] sm:text-4xl lg:text-5xl">
-                Mathematics Challenge
-              </h1>
-              <p className="mt-3 font-serif text-base text-[#633326] sm:text-lg">
-                Choose your day • Focus, calculate, persevere
+          ) : todayError || yesterdayError ? (
+            <div className="mx-auto max-w-lg rounded-2xl bg-[#FFF0D7] p-8 text-center text-[#87152A]">
+              <AlertCircle className="mx-auto mb-3" size={36} />
+              <p>
+                {todayError?.response?.data?.message ||
+                  yesterdayError?.response?.data?.message ||
+                  "Failed to load mathematics challenges"}
               </p>
-              <div className="mx-auto mt-5 h-px w-48 bg-gradient-to-r from-transparent via-[#B9783E] to-transparent" />
-            </header>
-
-            <div className="grid gap-4 md:grid-cols-2">
-              <ChallengeChoiceCard
-                title="Today's Challenge"
-                date={todayData?.quizDate}
-                data={todayData}
-                loading={false}
-                error={null}
-                icon={Sun}
-                onSelect={() => chooseDate(todayData)}
-              />
-              {yesterdayData?.status === "available" && (
-                <ChallengeChoiceCard
-                  title="Yesterday's Challenge"
-                  date={yesterdayDate}
-                  data={yesterdayData}
-                  loading={yesterdayPending}
-                  error={yesterdayError}
-                  icon={MoonStar}
-                  onSelect={() => chooseDate(yesterdayData)}
-                />
-              )}
+              <button
+                type="button"
+                onClick={() => {
+                  if (todayError) refetchToday();
+                  if (yesterdayError) refetchYesterday();
+                }}
+                className="mt-5 rounded-full bg-[#87152A] px-6 py-3 text-white"
+              >
+                Try Again
+              </button>
             </div>
+          ) : !showSelection && todayData?.status === "completed" ? (
+            <MathCompletion navigate={navigate} />
+          ) : (!showSelection || selectedDate) &&
+            activeData?.status === "available" ? (
+            <OwnerMathSession
+              key={`${user.uid}:${activeData.quizDate}`}
+              uid={user.uid}
+              initialData={activeData}
+              onBack={() => setSelectedDate(null)}
+              onCompleted={() => setSelectedDate(null)}
+              showBackButton={showSelection}
+            />
+          ) : (
+            <div className="mx-auto w-full max-w-5xl py-6">
+              <header className="mb-4 text-center">
+                <h1 className="font-serif text-3xl font-bold text-[#791326] drop-shadow-[0_1px_2px_#fff2d5] sm:text-4xl lg:text-5xl">
+                  Mathematics Challenge
+                </h1>
+                <p className="mt-3 font-serif text-base text-[#633326] sm:text-lg">
+                  Choose your day • Focus, calculate, persevere
+                </p>
+                <div className="mx-auto mt-5 h-px w-48 bg-gradient-to-r from-transparent via-[#B9783E] to-transparent" />
+              </header>
 
-            {yesterdayError && (
-              <div className="mt-5 text-center">
-                <button
-                  type="button"
-                  onClick={() => refetchYesterday()}
-                  className="rounded-full border border-[#DDA56E] bg-[#FFF0D7] px-6 py-2 font-serif text-[#87152A]"
-                >
-                  Retry yesterday's challenge
-                </button>
+              <div className="grid gap-4 md:grid-cols-2">
+                <ChallengeChoiceCard
+                  title="Today's Challenge"
+                  date={todayData?.quizDate}
+                  data={todayData}
+                  loading={false}
+                  error={null}
+                  icon={Sun}
+                  onSelect={() => chooseDate(todayData)}
+                />
+                {yesterdayData?.status === "available" && (
+                  <ChallengeChoiceCard
+                    title="Yesterday's Challenge"
+                    date={yesterdayDate}
+                    data={yesterdayData}
+                    loading={yesterdayPending}
+                    error={yesterdayError}
+                    icon={MoonStar}
+                    onSelect={() => chooseDate(yesterdayData)}
+                  />
+                )}
               </div>
-            )}
-            <p className="mt-8 text-center font-serif text-sm text-[#75452E]">
-              Completed challenges cannot be submitted again.
-            </p>
-          </div>
-        )}
+
+              {yesterdayError && (
+                <div className="mt-5 text-center">
+                  <button
+                    type="button"
+                    onClick={() => refetchYesterday()}
+                    className="rounded-full border border-[#DDA56E] bg-[#FFF0D7] px-6 py-2 font-serif text-[#87152A]"
+                  >
+                    Retry yesterday's challenge
+                  </button>
+                </div>
+              )}
+              <p className="mt-8 text-center font-serif text-sm text-[#75452E]">
+                Completed challenges cannot be submitted again.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </main>
   );

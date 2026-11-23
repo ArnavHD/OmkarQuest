@@ -200,7 +200,7 @@ export default function Profile() {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#14090b]/65 via-[#230d12]/70 to-[#14090b]/85" />
 
       <div className="relative z-10 mx-auto flex h-full min-h-0 w-full max-w-5xl flex-col justify-center px-3 py-2 sm:px-5 sm:py-3 lg:px-7">
-        <header className="mb-3 shrink-0 text-center max-[height:700px]:mb-1">
+        <header className="mb-3 shrink-0 text-center [@media(max-height:700px)]:mb-1">
           <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#e8bb70]">
             Omkar Quest
           </p>

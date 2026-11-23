@@ -308,8 +308,8 @@ const QuestionnaireSession = ({ quiz, uid }) => {
     <div className="mx-auto w-full max-w-7xl pb-8">
       {/* Page heading */}
       <header className=" mb-5 px-3 text-center text-[#791326] drop-shadow-[0_1px_2px_#fff2d5]">
-        <h1 className="font-serif text-3xl font-bold sm:text-4xl lg:text-5xl">
-          Daily Spiritual Questionnaire
+        <h1 className="font-serif  text-2xl font-bold sm:text-4xl lg:text-5xl">
+          Spiritual Questionnaire
         </h1>
 
         <p className="mt-2 font-serif text-base text-[#4B2118] sm:text-lg">
@@ -935,18 +935,7 @@ const QuizContent = () => {
   // SCREEN 2: Original questionnaire
   return (
     <div className="flex   w-full flex-col ">
-      {showSelection && (
-        <div className="shrink-0 px-3 pt-2">
-          <button
-            type="button"
-            onClick={() => setSelectedDate(null)}
-            className="inline-flex items-center gap-2 rounded-full border border-[#D78B3D] bg-[#FFF0D7] px-4 py-2 font-serif text-sm font-semibold text-[#87152A] shadow-sm transition hover:bg-[#FFE2B5]"
-          >
-            <ArrowLeft size={17} />
-            Back to Selection
-          </button>
-        </div>
-      )}
+      
 
       <div className="min-h-0 flex-1  overscroll-contain">
         <QuestionnaireSession key={sessionKey} uid={user.uid} quiz={quiz} />
